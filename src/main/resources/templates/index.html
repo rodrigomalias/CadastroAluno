@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastro</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="MascaraCampos/dist/jquery.mask.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('[name=telefone]').mask('(00) 0000-0000');
+                var max_fields      = 10;
+                var wrapper         = $(".input_fields_wrap");
+                var add_button      = $(".add_field_button");
+                var x = 1;
+                $(add_button).click(function(e){
+                    e.preventDefault();
+                    if(x < max_fields){
+                        x++; //text box increment
+                        $(wrapper).append('<p><div><input type="text" required minlength="13" maxlength="13" name="telefone"/><a href="#" class="remove_field">Remove</a></div></p>');
+                    }
+                });
+                $(wrapper).on("click",".remove_field", function(e){
+                    e.preventDefault(); $(this).parent('div').remove(); x--;
+                })
+            });
+        </script>
+    </head>
+    <body style="text-align:center; margin-top:200px;">
+        <form method="post">
+            <p><label> Matricula </label></p>
+            <p><input type="text" name="matricula" required minlength="3" maxlength="100"></p>
+            <p><label> Nome </label></p>
+            <p><input type="text" name="nome" required minlength="3" maxlength="100"></p>
+            <p><label> Sobre Nome </label></p>
+            <p><input type="text" name="sobrenome" required minlength="3" maxlength="100"></p>
+
+            <p><label> Telefone </label></p>
+            <div class="input_fields_wrap">
+                <p><input type="text" name="telefone" required minlength="13" maxlength="13"></p>
+                <p><button class="add_field_button">Mais um telefone</button></p>
+            </div>
+            <p><button type="submit"> CADASTRAR </button></p>
+        </form>
+        <th:block th:include="mensagem"></th:block>
+    </body>
+</html>
